@@ -8,6 +8,7 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from django.contrib.auth import login
 from .models import Profile
 from .serializers import profileSerializer
+from rest_framework import viewsets
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -32,3 +33,7 @@ class LoginAPI(KnoxLoginView):
         login(request, user)
         return super(LoginAPI, self).post(request, format=None)
 
+class profilegenericview(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Profile.objects.all()
+    serializer_class=profileSerializer
+    lookup_field='slug'

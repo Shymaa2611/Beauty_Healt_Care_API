@@ -8,6 +8,7 @@ urlpatterns=[
    path('api/rate/<slug:slug>/',views.product_rate,name='rating'),
    path('api/favourite/<slug:slug>/',views.product_favorite,name='favourite'),
    path('api/recommanded/<slug:slug>/',views.get_recommended_products,name='recommended'),
-   path('api/get_new_product/',views.get_new_products,name='get_new_product')
+   path('api/get_new_product/',views.get_new_products,name='get_new_product'),
+   path('api/get_product_category/',views.get_product_category,name='get_product_category')
 
 ]

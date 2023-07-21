@@ -46,6 +46,7 @@ def seach_about_product(request):
     )
      serializer=productSerializer(data,many=True)
      return Response(serializer.data)
+
 @api_view(['GET','POST'])
 def product_rate(request, slug):
 
@@ -139,3 +140,10 @@ def get_new_products(request):
     serializer =productSerializer(product, many=True)
     return Response(serializer.data)
      
+@api_view(['GET'])
+def get_product_category(request):
+     product=Product.objects.filter(
+          category=request.data['category']
+     )
+     serializer=productSerializer(product,many=True)
+     return Response(serializer.data)
