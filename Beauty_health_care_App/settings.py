@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'accounts',
     'knox',
     'cart',
-    'order'
+    'order',
+    'payment'
 ]
 
 REST_FRAMEWORK = {

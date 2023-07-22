@@ -9,11 +9,12 @@ from django.contrib.auth import login
 from .models import Profile
 from .serializers import profileSerializer
 from rest_framework import viewsets
+from django.contrib.auth.models import User
+
 
 
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
-
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

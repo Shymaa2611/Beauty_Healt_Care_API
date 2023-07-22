@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,authentication_classes,permission_classes
 import  rest_framework.status  as status
 from .models import Rating,Category,Favourite,Product,Brand
 from .serializers import productSerializer,ratingSerializer,favouriteSerializer
 from django.contrib.auth.models import User
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def get_add_product_data(request):
     if request.method=='GET':
@@ -19,6 +23,8 @@ def get_add_product_data(request):
             return Response(serializer.data, status= status.HTTP_201_CREATED)
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET','PUT','DELETE'])
 def update_product_data(request,slug):
     try:
@@ -37,8 +43,10 @@ def update_product_data(request,slug):
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
     if request.method == 'DELETE':
         product.delete()
-        return Response(status= status.HTTP_204_NO_CONTENT)
-    
+        return Response(status= status.HTTP_204_NO_CONTENT) 
+
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def seach_about_product(request):
      data = Product.objects.filter(
@@ -47,6 +55,8 @@ def seach_about_product(request):
      serializer=productSerializer(data,many=True)
      return Response(serializer.data)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def product_rate(request, slug):
 
@@ -81,6 +91,8 @@ def product_rate(request, slug):
             }
             return Response(json , status=status.HTTP_400_BAD_REQUEST)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET','POST'])
 def product_favorite(request, slug):
 
@@ -115,6 +127,8 @@ def product_favorite(request, slug):
             }
             return Response(json , status=status.HTTP_400_BAD_REQUEST)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_favourite_products(request):
      data=Favourite.objects.filter(
@@ -123,6 +137,8 @@ def get_favourite_products(request):
      serializer=favouriteSerializer(data,many=True)
      return Response(serializer.data)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_recommended_products(request,slug):
      try:
@@ -133,13 +149,17 @@ def get_recommended_products(request,slug):
      except Product.DoesNotExist:
           return Response(status=status.HTTP_404_NOT_FOUND)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_new_products(request):
     product=Product.objects.all()
     product=product.order_by('-create_at')[:10]
     serializer =productSerializer(product, many=True)
     return Response(serializer.data)
-     
+
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_product_category(request):
      product=Product.objects.filter(
