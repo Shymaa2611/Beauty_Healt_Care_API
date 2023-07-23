@@ -9,17 +9,18 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 class CartViewSet(CreateModelMixin,RetrieveModelMixin,DestroyModelMixin,viewsets.GenericViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-    authentication_classes=(TokenAuthentication)
-    permission_classes=(IsAuthenticated)
+    #authentication_classes=(TokenAuthentication)
+    #permission_classes=(IsAuthenticated)
 
 
 class CartItemViewSet(viewsets.ModelViewSet):
     
     http_method_names = ["get", "post", "put", "delete"]
-    authentication_classes=(TokenAuthentication)
-    permission_classes=(IsAuthenticated)
+    #authentication_classes=(TokenAuthentication)
+    #permission_classes=(IsAuthenticated)
     def get_queryset(self):
-        return cartitems.objects.filter(cart_id=self.kwargs.get("pk"))
+        data=cartitems.objects.filter(cart_id=self.kwargs.get("pk"))
+        return data
     
     
     def get_serializer_class(self):
@@ -32,5 +33,6 @@ class CartItemViewSet(viewsets.ModelViewSet):
         return CartItemSerializer
     
     def get_serializer_context(self):
-        return {"cart_id": self.kwargs.get("pk")}
+        data={"cart_id": self.kwargs.get("pk")}
+        return data
 

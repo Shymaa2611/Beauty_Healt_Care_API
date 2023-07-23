@@ -28,23 +28,24 @@ class CreateOrderSerializer(serializers.Serializer):
         if not Cart.objects.filter(id=cart_id).exists():
             raise serializers.ValidationError("This cart_id is invalid")
         
-        elif not cartitems.objects.filter(id=cart_id).exists():
+        elif cartitems.objects.filter(id=cart_id).exists():
             raise serializers.ValidationError("Sorry your cart is empty")
         
         return cart_id
     
+    
     def save(self, **kwargs):
         with transaction.atomic():
-            cart_id = self.validated_data["id"]
+            cart_id = self.validated_data["cart_id"]
             user_id = self.context["user_id"]
             order = Order.objects.create(owner_id = user_id)
-            cartitems = cartitems.objects.filter(id=cart_id)
+            cartitem =cartitems.objects.filter(id=cart_id)
             orderitems = [
                 OrderItem(order=order, 
                     product=item.product, 
                     quantity=item.quantity
                     )
-            for item in cartitems
+            for item in cartitem
             ]
             OrderItem.objects.bulk_create(orderitems)
             return order
