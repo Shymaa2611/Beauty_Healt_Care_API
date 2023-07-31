@@ -24,10 +24,9 @@ SECRET_KEY = 'django-insecure-w6t43%lj$6!6#pow#k7g%!ue02yzqs%s=g!6xw+igwtku)32fd
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+ALLOWED_HOSTS = ['localhost','skinCareAPI.pythonanywhere.com']
 
-ALLOWED_HOSTS = ['localhost','beautyAPI.pythonanywhere.com']
-
-
+ALLOWED_HOSTS=[]
 # Application definition
 
 INSTALLED_APPS = [
