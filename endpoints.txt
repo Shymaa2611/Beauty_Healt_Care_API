@@ -1,0 +1,18 @@
+API enpoints :-
+   1-api/get_data/
+   2-api/get_data/product_name/
+   3-api/search/   => need to product_name as request
+   4-api/get_favourite/  => get favourite products
+   5-api/rate/product_name/  => rate product need stars and username as request (username=admin4 , stars=4)
+   7-api/favourite/product1/ => username and love
+   8-http://127.0.0.1:8000/api/recommanded/product4/    => get recommanded product
+   9-http://127.0.0.1:8000/cart/carts/5b8a0a48-03b6-4efe-bbfd-7aaa191bd081/items/   => add items into cart  (product_name,quentity)
+   10-http://127.0.0.1:8000/api/get_new_product/  => get new Product
+   11-http://127.0.0.1:8000/api/get_product_category/     => need to id of category as request (category  2   as example )
+   12- users/api/register/
+   13-users/api/login/
+   14-api/logout/
+   15-api/profile/<slug:slug>/
+   
+   
+   
