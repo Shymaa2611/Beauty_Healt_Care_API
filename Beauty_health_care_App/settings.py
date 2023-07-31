@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w6t43%lj$6!6#pow#k7g%!ue02yzqs%s=g!6xw+igwtku)32fd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-#ALLOWED_HOSTS = ['localhost','skinCareAPI.pythonanywhere.com']
+DEBUG = False
+ALLOWED_HOSTS = ['localhost','skinCareAPI.pythonanywhere.com']
 
-ALLOWED_HOSTS=[]
+#ALLOWED_HOSTS=[]
 # Application definition
 
 INSTALLED_APPS = [
